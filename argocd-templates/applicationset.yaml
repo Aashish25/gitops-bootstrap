@@ -37,6 +37,8 @@ spec:
         server: '{{cluster}}'          # Deploys to the respective cluster API
         namespace: '{{env}}-apps'      # Places workloads cleanly into dev-apps or prod-apps namespaces
       syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
         automated:
           prune: true
           selfHeal: true
