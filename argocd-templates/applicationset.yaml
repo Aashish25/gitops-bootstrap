@@ -16,7 +16,7 @@ spec:
                   cluster: https://prod-cluster-api.internal # Remote production cluster
           # Generator 2: Scans our 'apps/' directory for microservices
           - git:
-              repoURL: 'https://github.com/your-org/gitops-infra-repo.git'
+              repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
               revision: HEAD
               directory:
                 path: apps/*
@@ -27,7 +27,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/your-org/gitops-infra-repo.git'
+        repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
         targetRevision: HEAD
         path: '{{path}}'              # Resolves to 'apps/web-app' or 'apps/database'
         helm:
