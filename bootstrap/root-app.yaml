@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-org/gitops-infra-repo.git'
+    repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
     targetRevision: HEAD
     path: argocd-templates     # Points to the folder containing our ApplicationSets
   destination:
