@@ -13,6 +13,8 @@ spec:
     server: 'https://kubernetes.default.svc' # Deploys back into the local cluster management plane
     namespace: argocd
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true #create if doesn't exists  
     automated:
       prune: true
       selfHeal: true

@@ -30,9 +30,9 @@ spec:
         repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
         targetRevision: HEAD
         path: '{{path}}'              # Resolves to 'apps/web-app' or 'apps/database'
-        helm:
-          valueFiles:
-            - '{{env}}-values.yaml'    # Resolves to 'dev-values.yaml' or 'prod-values.yaml'
+        # helm:
+        #   valueFiles:
+        #     - '{{env}}-values.yaml'    # Resolves to 'dev-values.yaml' or 'prod-values.yaml'
       destination:
         server: '{{cluster}}'          # Deploys to the respective cluster API
         namespace: '{{env}}-apps'      # Places workloads cleanly into dev-apps or prod-apps namespaces
