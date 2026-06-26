@@ -13,7 +13,7 @@ spec:
                 - env: dev
                   cluster: https://kubernetes.default.svc # Local cluster for dev
                 - env: prod
-                  cluster: https://prod-cluster-api.internal # Remote production cluster
+                  cluster: https://kubernetes.default.svc # Remote production cluster
           # Generator 2: Scans our 'apps/' directory for microservices
           - git:
               repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
