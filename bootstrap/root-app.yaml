@@ -1,7 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-bootstrap-app
+  name: root-bootstrap-app-helm
+  # name: root-bootstrap-app  
   namespace: argocd
 spec:
   project: default
@@ -13,8 +14,11 @@ spec:
     server: 'https://kubernetes.default.svc' # Deploys back into the local cluster management plane
     namespace: argocd
   syncPolicy:
+    retry:
+      refresh: true # Automatically cancels retries to evaluate the new Git h
     syncOptions:
     - CreateNamespace=true #create if doesn't exists  
     automated:
       prune: true
       selfHeal: true
+      

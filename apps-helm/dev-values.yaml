@@ -1,0 +1,3 @@
+replicaCount: 1  # Keeps resource consumption low in dev
+service:
+  type: ClusterIP

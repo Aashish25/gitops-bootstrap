@@ -1,7 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: cluster-workloads
+  # name: cluster-workloads
+  name: cluster-workloads-helm  
   namespace: argocd
 spec:
   generators:
@@ -19,7 +20,8 @@ spec:
               repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
               revision: HEAD
               directories:
-                - path: apps/*
+                # - path: apps/*
+                - path: apps-helm/*                
   template:
     # This acts as a blueprint. Variables enclosed in {{}} are resolved dynamically.
     metadata:
@@ -30,15 +32,17 @@ spec:
         repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
         targetRevision: HEAD
         path: '{{path}}'              # Resolves to 'apps/web-app' or 'apps/database'
-        # helm:
-        #   valueFiles:
-        #     - '{{env}}-values.yaml'    # Resolves to 'dev-values.yaml' or 'prod-values.yaml'
+        helm:
+          valueFiles:
+            - '{{env}}-values.yaml'    # Resolves to 'dev-values.yaml' or 'prod-values.yaml'
       destination:
         server: '{{cluster}}'          # Deploys to the respective cluster API
-        namespace: '{{env}}-apps'      # Places workloads cleanly into dev-apps or prod-apps namespaces
+        namespace: '{{env}}-apps-helm'      # Places workloads cleanly into dev-apps or prod-apps namespaces
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
         automated:
           prune: true
           selfHeal: true
+        retry:
+          refresh: true # Automatically cancels retries to evaluate the new Git h          

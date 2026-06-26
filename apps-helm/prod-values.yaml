@@ -1,0 +1,5 @@
+replicaCount: 5  # Scales out for high availability in prod
+image:
+  tag: "1.25"     # Pin precise version for prod stability
+service:
+  type: LoadBalancer # Expose to external traffic in prod
