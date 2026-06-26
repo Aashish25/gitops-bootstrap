@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-workloads
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          # Generator 1: Defines our Target Environments/Clusters
+          - list:
+              elements:
+                - env: dev
+                  cluster: https://kubernetes.default.svc # Local cluster for dev
+                - env: prod
+                  cluster: https://prod-cluster-api.internal # Remote production cluster
+          # Generator 2: Scans our 'apps/' directory for microservices
+          - git:
+              repoURL: 'https://github.com/your-org/gitops-infra-repo.git'
+              revision: HEAD
+              directory:
+                path: apps/*
+  template:
+    # This acts as a blueprint. Variables enclosed in {{}} are resolved dynamically.
+    metadata:
+      name: '{{env}}-{{path.basename}}' # e.g., dev-web-app or prod-database
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/your-org/gitops-infra-repo.git'
+        targetRevision: HEAD
+        path: '{{path}}'              # Resolves to 'apps/web-app' or 'apps/database'
+        helm:
+          valueFiles:
+            - '{{env}}-values.yaml'    # Resolves to 'dev-values.yaml' or 'prod-values.yaml'
+      destination:
+        server: '{{cluster}}'          # Deploys to the respective cluster API
+        namespace: '{{env}}-apps'      # Places workloads cleanly into dev-apps or prod-apps namespaces
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
