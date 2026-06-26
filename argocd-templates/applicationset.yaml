@@ -45,4 +45,8 @@ spec:
           prune: true
           selfHeal: true
         retry:
-          refresh: true # Automatically cancels retries to evaluate the new Git h          
+          limit: 2 # Number of times to retry a failed sync (0 is unlimited)
+          backoff:
+            duration: 5s # Time between retries (e.g., 5s, 2m)
+            factor: 2 # Factor by which to multiply duration on each retry
+            maxDuration: 3m # Maximum time allowed between retries        
