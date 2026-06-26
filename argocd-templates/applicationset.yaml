@@ -18,7 +18,7 @@ spec:
           - git:
               repoURL: 'https://github.com/Aashish25/gitops-bootstrap.git'
               revision: HEAD
-              directory:
+              directories:
                 - path: apps
   template:
     # This acts as a blueprint. Variables enclosed in {{}} are resolved dynamically.
